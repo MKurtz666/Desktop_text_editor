@@ -1,0 +1,17 @@
+<RCC>
+	<qresource>
+		<file>icon_copy_action.png</file>
+		<file>icon_cut_action.png</file>
+		<file>icon_find.png</file>
+		<file>icon_go_to.png</file>
+		<file>icon_new_action.png</file>
+		<file>icon_open_action.png</file>
+		<file>icon_paste_action.png</file>
+		<file>icon_print_action.png</file>
+		<file>icon_program.png</file>
+		<file>icon_redo_action.png</file>
+		<file>icon_save_action.png</file>
+		<file>icon_undo_action.png</file>
+		<file>splash_screen.jpg</file>
+	</qresource>
+</RCC>

@@ -8,6 +8,7 @@ import sys
 import locale
 import time
 import datetime
+import resources
 
 
 class GoToDialog(QDialog):
@@ -17,7 +18,7 @@ class GoToDialog(QDialog):
         self.setParent(parent)
         self.setWindowTitle('Go to row')
         self.setFixedHeight(80)
-        self.setWindowIcon(QIcon('icon_go_to.png'))
+        self.setWindowIcon(QIcon('://icon_go_to.png'))
         self.parent_text_field = parent.text_edit_field
         # defining the layout as grid layout
         goto_dialog_layout = QGridLayout()
@@ -52,7 +53,7 @@ class FindDialog(QDialog):
         self.setParent(parent)
         self.setWindowTitle('Find phrase')
         self.setFixedHeight(80)
-        self.setWindowIcon(QIcon('icon_find.png'))
+        self.setWindowIcon(QIcon('://icon_find.png'))
         self.searched_text = None
         self.parent_text_field = parent.text_edit_field
         # defining the layout as grid layout
@@ -175,57 +176,57 @@ class TextEditMainWindow(QMainWindow):
         self.tool_bar.setIconSize(QSize(45, 45))
         # creating 'new' button on toolbar
         new_tool_button = QAction('New', self)
-        new_tool_button.setIcon(QIcon('icon_new_action.png'))
+        new_tool_button.setIcon(QIcon('://icon_new_action.png'))
         new_tool_button.setToolTip('New document  Ctrl+N')
         new_tool_button.triggered.connect(self.new_file)
         self.tool_bar.addAction(new_tool_button)
         # creating 'open' button on toolbar
         open_tool_button = QAction('Open', self)
-        open_tool_button.setIcon(QIcon('icon_open_action.png'))
+        open_tool_button.setIcon(QIcon('://icon_open_action.png'))
         open_tool_button.setToolTip('Open document  Ctrl+O')
         open_tool_button.triggered.connect(self.open_file)
         self.tool_bar.addAction(open_tool_button)
         # creating 'save' button on toolbar
         save_tool_button = QAction('Save', self)
-        save_tool_button.setIcon(QIcon('icon_save_action.png'))
+        save_tool_button.setIcon(QIcon('://icon_save_action.png'))
         save_tool_button.setToolTip('Save document  Ctrl+S')
         save_tool_button.triggered.connect(self.save_file)
         self.tool_bar.addAction(save_tool_button)
         # creating 'print' button on toolbar
         print_tool_button = QAction('Print', self)
-        print_tool_button.setIcon(QIcon('icon_print_action.png'))
+        print_tool_button.setIcon(QIcon('://icon_print_action.png'))
         print_tool_button.setToolTip('Print document  Ctrl+P')
         print_tool_button.triggered.connect(self.print_file)
         self.tool_bar.addAction(print_tool_button)
         self.tool_bar.addSeparator()
         # creating 'undo' button on toolbar
         undo_tool_button = QAction('Undo', self)
-        undo_tool_button.setIcon(QIcon('icon_undo_action.png'))
+        undo_tool_button.setIcon(QIcon('://icon_undo_action.png'))
         undo_tool_button.setToolTip('Undo  Ctrl+Z')
         undo_tool_button.triggered.connect(self.text_edit_field.undo)
         self.tool_bar.addAction(undo_tool_button)
         # creating 'redo' button on toolbar
         redo_tool_button = QAction('Redo', self)
-        redo_tool_button.setIcon(QIcon('icon_redo_action.png'))
+        redo_tool_button.setIcon(QIcon('://icon_redo_action.png'))
         redo_tool_button.setToolTip('Redo  Ctrl+Y')
         redo_tool_button.triggered.connect(self.text_edit_field.redo)
         self.tool_bar.addAction(redo_tool_button)
         self.tool_bar.addSeparator()
         # creating 'copy' button on toolbar
         copy_tool_button = QAction('Copy', self)
-        copy_tool_button.setIcon(QIcon('icon_copy_action.png'))
+        copy_tool_button.setIcon(QIcon('://icon_copy_action.png'))
         copy_tool_button.setToolTip('Copy selected  Ctrl+C')
         copy_tool_button.triggered.connect(self.text_edit_field.copy)
         self.tool_bar.addAction(copy_tool_button)
         # creating 'paste' button on toolbar
         paste_tool_button = QAction('Paste', self)
-        paste_tool_button.setIcon(QIcon('icon_paste_action.png'))
+        paste_tool_button.setIcon(QIcon('://icon_paste_action.png'))
         paste_tool_button.setToolTip('Paste  Ctrl+V')
         paste_tool_button.triggered.connect(self.text_edit_field.paste)
         self.tool_bar.addAction(paste_tool_button)
         # creating 'cut' button on toolbar
         cut_tool_button = QAction('Cut', self)
-        cut_tool_button.setIcon(QIcon('icon_cut_action.png'))
+        cut_tool_button.setIcon(QIcon('://icon_cut_action.png'))
         cut_tool_button.setToolTip('Cut selected  Ctrl+X')
         cut_tool_button.triggered.connect(self.text_edit_field.cut)
         self.tool_bar.addAction(cut_tool_button)
@@ -579,11 +580,11 @@ if __name__ == '__main__':
     # setting application name
     editor.setApplicationName('Boro text editor')
     # setting app icon
-    editor.setWindowIcon(QIcon('icon_program.png'))
+    editor.setWindowIcon(QIcon('://icon_program.png'))
     # creating main app window
     main_window = TextEditMainWindow()
     # creating splash image using QPixmap class
-    splash_image = QPixmap('splash_screen.jpg')
+    splash_image = QPixmap('://splash_screen.jpg')
     # creating the splash screen passing the image as argument
     splash_screen = QSplashScreen(splash_image)
     # showing the splash screen before the main window
