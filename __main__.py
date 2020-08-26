@@ -2,100 +2,14 @@ from PyQt5.QtCore import *
 from PyQt5.QtWidgets import *
 from PyQt5.QtGui import *
 from PyQt5.QtPrintSupport import *
-from boro_text_edit_stylesheets import *
+from stylesheets.stylesheets import *
+from dialogs.go_to_dialog import GoToDialog
+from dialogs.find_dialog import FindDialog
 
-import sys
+import resources
 import locale
 import time
 import datetime
-
-
-class GoToDialog(QDialog):
-
-    def __init__(self, parent):
-        QDialog.__init__(self, parent)
-        self.setParent(parent)
-        self.setWindowTitle('Go to row')
-        self.setFixedHeight(80)
-        self.setWindowIcon(QIcon('icon_go_to.png'))
-        self.parent_text_field = parent.text_edit_field
-        # defining the layout as grid layout
-        goto_dialog_layout = QGridLayout()
-        # creating the field for entering searched phrase
-        self.row_input = QLineEdit()
-        self.row_input.setValidator(QIntValidator(1, 999999))
-        self.row_input.setFixedWidth(40)
-        goto_dialog_layout.addWidget(self.row_input, 1, 2, 1, 2)
-        # creating the find label
-        row_num_label = QLabel('Row number:')
-        goto_dialog_layout.addWidget(row_num_label, 1, 1, 1, 1)
-        # creating the find next button
-        go_to_button = QPushButton('Find next')
-        # go_to_button.clicked.connect(self.go_to_row)
-        goto_dialog_layout.addWidget(go_to_button, 2, 1, 1, 1)
-        # creating the cancel button
-        cancel_button = QPushButton('Cancel')
-        cancel_button.clicked.connect(self.close)
-        goto_dialog_layout.addWidget(cancel_button, 2, 2, 1, 1)
-        # setting the previously described layout for the dialog
-        self.setLayout(goto_dialog_layout)
-        self.setStyleSheet(parent.style_sheet)
-        self.show()
-
-
-class FindDialog(QDialog):
-
-    def __init__(self, parent):
-        # adding the 'parent' arg to the init func to establish the relationship
-        QDialog.__init__(self, parent)
-
-        self.setParent(parent)
-        self.setWindowTitle('Find phrase')
-        self.setFixedHeight(80)
-        self.setWindowIcon(QIcon('icon_find.png'))
-        self.searched_text = None
-        self.parent_text_field = parent.text_edit_field
-        # defining the layout as grid layout
-        find_dialog_layout = QGridLayout()
-        # creating the field for entering searched phrase
-        self.searched_phrase_input = QLineEdit()
-        self.searched_phrase_input.setPlaceholderText('Enter searched phrase')
-        find_dialog_layout.addWidget(self.searched_phrase_input, 1, 2, 1, 2)
-        # creating the find label
-        find_label = QLabel('Find:')
-        find_dialog_layout.addWidget(find_label, 1, 1, 1, 1)
-        # creating the find next button
-        find_next_button = QPushButton('Find next')
-        find_next_button.clicked.connect(lambda: self.search_for_text('F'))
-        find_dialog_layout.addWidget(find_next_button, 2, 1, 1, 1)
-        # creating the find previous button
-        find_previous_button = QPushButton('Find previous')
-        find_previous_button.clicked.connect(lambda: self.search_for_text('B'))
-        find_dialog_layout.addWidget(find_previous_button, 2, 2, 1, 1)
-        # creating the cancel button
-        cancel_button = QPushButton('Cancel')
-        cancel_button.clicked.connect(self.close)
-        find_dialog_layout.addWidget(cancel_button, 2, 3, 1, 1)
-        # setting the previously described layout for the dialog
-        self.setLayout(find_dialog_layout)
-        # setting the style sheet for dialog - same as parent widget
-        self.setStyleSheet(parent.style_sheet)
-        self.show()
-
-    def search_for_text(self, direction):
-        # attribute storing the phrase that we're looking for
-        self.searched_text = self.searched_phrase_input.text()
-        # running find() built in on the text field of the parent widget
-        if direction == 'F':
-            self.parent_text_field.find(self.searched_text)
-        else:
-            self.parent_text_field.find(self.searched_text, QTextDocument.FindBackward)
-        # if phrase not in parent text field show popup message
-        if self.searched_text not in self.parent_text_field.toPlainText() \
-                and self.searched_text.capitalize() not in self.parent_text_field.toPlainText() \
-                and self.searched_text.lower() not in self.parent_text_field.toPlainText() \
-                and self.searched_text.upper() not in self.parent_text_field.toPlainText():
-            not_found_popup = QMessageBox.information(self, 'Not found', 'Phrase not found', QMessageBox.Ok)
 
 
 class TextEditMainWindow(QMainWindow):
@@ -175,57 +89,57 @@ class TextEditMainWindow(QMainWindow):
         self.tool_bar.setIconSize(QSize(45, 45))
         # creating 'new' button on toolbar
         new_tool_button = QAction('New', self)
-        new_tool_button.setIcon(QIcon('icon_new_action.png'))
+        new_tool_button.setIcon(QIcon('://icon_new_action.png'))
         new_tool_button.setToolTip('New document  Ctrl+N')
         new_tool_button.triggered.connect(self.new_file)
         self.tool_bar.addAction(new_tool_button)
         # creating 'open' button on toolbar
         open_tool_button = QAction('Open', self)
-        open_tool_button.setIcon(QIcon('icon_open_action.png'))
+        open_tool_button.setIcon(QIcon('://icon_open_action.png'))
         open_tool_button.setToolTip('Open document  Ctrl+O')
         open_tool_button.triggered.connect(self.open_file)
         self.tool_bar.addAction(open_tool_button)
         # creating 'save' button on toolbar
         save_tool_button = QAction('Save', self)
-        save_tool_button.setIcon(QIcon('icon_save_action.png'))
+        save_tool_button.setIcon(QIcon('://icon_save_action.png'))
         save_tool_button.setToolTip('Save document  Ctrl+S')
         save_tool_button.triggered.connect(self.save_file)
         self.tool_bar.addAction(save_tool_button)
         # creating 'print' button on toolbar
         print_tool_button = QAction('Print', self)
-        print_tool_button.setIcon(QIcon('icon_print_action.png'))
+        print_tool_button.setIcon(QIcon('://icon_print_action.png'))
         print_tool_button.setToolTip('Print document  Ctrl+P')
         print_tool_button.triggered.connect(self.print_file)
         self.tool_bar.addAction(print_tool_button)
         self.tool_bar.addSeparator()
         # creating 'undo' button on toolbar
         undo_tool_button = QAction('Undo', self)
-        undo_tool_button.setIcon(QIcon('icon_undo_action.png'))
+        undo_tool_button.setIcon(QIcon('://icon_undo_action.png'))
         undo_tool_button.setToolTip('Undo  Ctrl+Z')
         undo_tool_button.triggered.connect(self.text_edit_field.undo)
         self.tool_bar.addAction(undo_tool_button)
         # creating 'redo' button on toolbar
         redo_tool_button = QAction('Redo', self)
-        redo_tool_button.setIcon(QIcon('icon_redo_action.png'))
+        redo_tool_button.setIcon(QIcon('://icon_redo_action.png'))
         redo_tool_button.setToolTip('Redo  Ctrl+Y')
         redo_tool_button.triggered.connect(self.text_edit_field.redo)
         self.tool_bar.addAction(redo_tool_button)
         self.tool_bar.addSeparator()
         # creating 'copy' button on toolbar
         copy_tool_button = QAction('Copy', self)
-        copy_tool_button.setIcon(QIcon('icon_copy_action.png'))
+        copy_tool_button.setIcon(QIcon('://icon_copy_action.png'))
         copy_tool_button.setToolTip('Copy selected  Ctrl+C')
         copy_tool_button.triggered.connect(self.text_edit_field.copy)
         self.tool_bar.addAction(copy_tool_button)
         # creating 'paste' button on toolbar
         paste_tool_button = QAction('Paste', self)
-        paste_tool_button.setIcon(QIcon('icon_paste_action.png'))
+        paste_tool_button.setIcon(QIcon('://icon_paste_action.png'))
         paste_tool_button.setToolTip('Paste  Ctrl+V')
         paste_tool_button.triggered.connect(self.text_edit_field.paste)
         self.tool_bar.addAction(paste_tool_button)
         # creating 'cut' button on toolbar
         cut_tool_button = QAction('Cut', self)
-        cut_tool_button.setIcon(QIcon('icon_cut_action.png'))
+        cut_tool_button.setIcon(QIcon('://icon_cut_action.png'))
         cut_tool_button.setToolTip('Cut selected  Ctrl+X')
         cut_tool_button.triggered.connect(self.text_edit_field.cut)
         self.tool_bar.addAction(cut_tool_button)
@@ -579,11 +493,11 @@ if __name__ == '__main__':
     # setting application name
     editor.setApplicationName('Boro text editor')
     # setting app icon
-    editor.setWindowIcon(QIcon('icon_program.png'))
+    editor.setWindowIcon(QIcon('://icon_program.png'))
     # creating main app window
     main_window = TextEditMainWindow()
     # creating splash image using QPixmap class
-    splash_image = QPixmap('splash_screen.jpg')
+    splash_image = QPixmap('://splash_screen.jpg')
     # creating the splash screen passing the image as argument
     splash_screen = QSplashScreen(splash_image)
     # showing the splash screen before the main window
