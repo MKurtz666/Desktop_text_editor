@@ -1,7 +1,5 @@
-from PyQt5.QtCore import *
 from PyQt5.QtWidgets import *
-from PyQt5.QtGui import *
-from gui.go_to_dialog_gui_creation import go_to_dialog_create_gui
+from src.gui.go_to_dialog_gui_creation import go_to_dialog_create_gui
 
 
 class GoToDialog(QDialog):

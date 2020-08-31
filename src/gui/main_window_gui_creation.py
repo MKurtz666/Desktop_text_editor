@@ -2,9 +2,13 @@ from PyQt5.QtCore import *
 from PyQt5.QtWidgets import *
 from PyQt5.QtGui import *
 from PyQt5.QtPrintSupport import QPrinter
-from stylesheets.stylesheets import *
+from src.stylesheets.stylesheets import *
 
 import locale
+import resources
+
+
+# ---------------------------------------- CREATING MAIN GUI ----------------------------------------
 
 
 def main_create_gui(window):
@@ -37,9 +41,10 @@ def main_create_gui(window):
     # attrib indicating default file name when saving etc.
     window.default_file_name = 'New_text_file'
 
-    # ---------------------------------------- STATUS BAR ----------------------------------------
+# ---------------------------------------- CREATING STATUS BAR ----------------------------------------
 
-    # creating the status bar
+
+def main_create_status_bar(window):
     status_bar = QStatusBar(window)
     status_bar.setSizeGripEnabled(True)
     window.setStatusBar(status_bar)
@@ -72,9 +77,10 @@ def main_create_gui(window):
     window.color_scheme_selector.currentIndexChanged.connect(window.color_scheme_change)
     status_bar.addWidget(window.color_scheme_selector)
 
-    # ---------------------------------------- TOOLBAR ----------------------------------------
+# ---------------------------------------- CREATING TOOLBAR ----------------------------------------
 
-    # creating the toolbar
+
+def main_create_toolbar(window):
     window.tool_bar = window.addToolBar('Toolbar')
     window.tool_bar.setMovable(True)
     window.tool_bar.setIconSize(QSize(45, 45))
@@ -135,9 +141,10 @@ def main_create_gui(window):
     cut_tool_button.triggered.connect(window.text_edit_field.cut)
     window.tool_bar.addAction(cut_tool_button)
 
-    # ---------------------------------------- MENU BAR ----------------------------------------
+# ---------------------------------------- CREATING MENU BAR ----------------------------------------
 
-    # creating the menubar
+
+def main_create_menu_bar(window):
     menu_bar = QMenuBar(window)
     menu_bar.setGeometry(QRect(0, 0, 700, 30))
     window.setMenuBar(menu_bar)

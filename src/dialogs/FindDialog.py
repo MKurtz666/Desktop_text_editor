@@ -1,7 +1,6 @@
-from PyQt5.QtCore import *
 from PyQt5.QtWidgets import *
 from PyQt5.QtGui import *
-from gui.find_dialog_gui_creation import find_dialog_create_gui
+from src.gui.find_dialog_gui_creation import find_dialog_create_gui
 
 
 class FindDialog(QDialog):
